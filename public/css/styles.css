@@ -4,3 +4,266 @@
 *:after {
   box-sizing: border-box;
 }
+
+
+/* Base styles for mobile */
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+#wrapper {
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  font-family: serif;
+  margin: 20px;
+}
+.main-content h1{
+  font-size: 4vw;
+}
+/** Header**/
+#top-header {
+  padding-bottom: 50px;
+  border-bottom: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.siteName {
+  padding-top: 20px;
+  font-size: 4em;
+  font-weight: bold;
+}
+
+.siteName a,
+#tools a {
+  color: #000;
+  text-decoration: none;
+}
+
+#tools a {
+  padding-bottom: 20px;
+  font-size: 1.3em;
+  line-height: 2; 
+}
+
+/** Navigation**/
+
+nav {
+  background-color: #2c3524;
+  padding: 35px 0;
+  text-align: center;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between; 
+}
+
+nav li {
+  display: inline-block;
+  margin: 0 4%;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+nav li:hover {
+  cursor: pointer;
+}
+
+nav li:not(:last-child) {
+  margin-right:4%;
+}
+
+
+/** Car card**/
+
+.welcome-section {
+  position: relative;
+  text-align: center;
+}
+
+.car-container {
+  position: relative;
+}
+
+.car-card {
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #76B041;
+  padding: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.car-card h2 {
+  font-family: serif;
+  font-weight: bold;
+  font-size: 4vw;
+}
+
+.car-card ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: -15%;
+}
+
+.car-card li {
+  font-weight: bold;
+  font-size: 3vw;
+}
+
+  /* "Own Today" button */
+.car-card p {
+  background-color: #76B041;
+  color: #000; 
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-top: 6%;
+  margin-bottom: 0;
+  font-size: 3.5vw;
+  cursor: pointer;
+}
+
+.car-image {
+  width: 80%;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+/**reviews section **/
+.reviews-section {
+  text-align: left;
+  margin: 20px;
+  margin-top: 4%;
+}
+
+.reviews-section h2 {
+  font-weight: bold;
+  font-size: 2em;
+  margin-left: -20px;
+}
+
+.reviews-list {
+  padding: 0;
+  margin: 0;
+}
+
+.review {
+  margin-bottom: 15px;
+  font-family: sans-serif;
+  font-size: 1.75em;
+}
+
+/**Upgrades section**/
+.upgrades-section h2{
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.upgrade-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.upgrade-box {
+  text-align: center;
+}
+
+.image-container {
+  background-color: #76B041;
+  border: 2px solid #000;
+  padding: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-size: 25%;
+  background-position: center center;
+}
+
+.image-container::after {
+  content: '';
+  display: block;
+  padding-bottom: 30%; 
+}
+
+.upgrade-box a {
+  text-decoration: underline;
+  display: block;
+  font-weight: bold;
+  font-size: 1.25em;
+}
+
+/**Footer**/
+footer p{
+margin-top:10%;
+font-size: 1.25em;
+}
+
+/* Media Query for Larger Screens */
+@media screen and (min-width: 768px) {
+  /* Adjustments for larger screens */
+
+  html {
+    background-image: url('/images/site/small_check.jpg');
+    background-size: cover;
+  }
+
+  body {
+    background-color: #fff;
+    border: 10px solid #76B041;
+    border-radius: 10px;
+    margin: 20px auto; 
+    padding: 20px;
+    max-width: 75%;
+  }
+
+  #wrapper {
+    padding: 0px;
+  }
+
+  .main-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .main-content h1{
+    grid-column: span 2;
+  }
+  
+  .welcome-section {
+    grid-column: span 2;
+  }
+  .reviews-section {
+    order: 2;
+  }
+
+  .upgrades-section {
+    order: 1;
+  }
+}
