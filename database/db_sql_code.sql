@@ -234,3 +234,28 @@ VALUES (
         'White',
         5
     );
+--GM Hummer Replace wording
+UPDATE public.inventory
+SET inv_description = REPLACE(
+        inv_description,
+        'small interiors',
+        'a huge interior'
+    )
+WHERE inv_make = 'GM'
+    AND inv_model = 'Hummer';
+-- Modifying image path
+UPDATE public.inventory
+SET inv_image = CONCAT(
+        '/images/vehicles/',
+        SUBSTRING(
+            inv_image
+            FROM POSITION('/' IN inv_image) + 8
+        )
+    ),
+    inv_thumbnail = CONCAT(
+        '/images/vehicles/',
+        SUBSTRING(
+            inv_thumbnail
+            FROM POSITION('/' IN inv_thumbnail) + 8
+        )
+    );
