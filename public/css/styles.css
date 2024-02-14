@@ -41,6 +41,8 @@ body {
   padding-bottom: 1em;
 }
 
+
+
 /* header.ejs */
 #top-header {
   display: flex;
@@ -222,7 +224,47 @@ section {
   margin-top: 1em;
 }
 
+ /* filters */
+ #inv-display {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#inv-display li {
+  display:flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+  vertical-align: bottom;
+}
+
+#inv-display li img {
+  width: 100%;
+  height: auto;
+}
+
+.namePrice {
+  padding: 0.3em;
+  background-color: #fff;
+}
+.namePrice a {
+font-size: 0.7em;
+text-decoration: none;
+color: #000;
+}
+
+.namePrice h2 {
+  font-size: 2em;
+  margin-bottom: 0.6em;
+}
+
+.namePrice span {
+  font-size: 1em;
+  color: #333;
+}
+
 @media only screen and (min-width: 768px) {
+  
   /* body */
   body {
     background-image:
@@ -330,4 +372,19 @@ section {
   #add-ons {
     width: 45%;
   }
+
+   /* filters */
+ #inv-display {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#inv-display li {
+  display: inline-table;
+  width: 30%;
+  margin-right: 2em;
+  margin-bottom: 2em;
+  vertical-align: bottom;
+}
 }
