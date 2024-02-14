@@ -1,0 +1,17 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { %>
+        <% res.redirect('/') %>
+            <% } %>
+
+                <div>
+                    <img src="/images/site/error.jpg" alt="Error Image" style="display:block;margin:auto;width:50%;">
+                </div>
+
+                <% if (message) { %>
+                    <p style="font-size: 2em;display:block;margin:auto;width:50%;">
+                        <%= message %>
+                    </p>
+                    <% } %>
