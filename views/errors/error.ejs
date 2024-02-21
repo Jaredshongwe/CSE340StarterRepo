@@ -7,7 +7,13 @@
             <% } %>
 
                 <div>
-                    <img src="/images/site/error.jpg" alt="Error Image" style="display:block;margin:auto;width:50%;">
+                    <% if (error=='Server Error' ) { %>
+                        <img src="/images/site/error500.jpg" alt="Error Image"
+                            style="display:block;margin:auto;width:50%;">
+                        <% } else { %>
+                            <img src="/images/site/error404.jpg" alt="Error Image"
+                                style="display:block;margin:auto;width:50%;">
+                            <% } %>
                 </div>
 
                 <% if (message) { %>

@@ -1,0 +1,10 @@
+<%# Header %>
+
+    <% if (title && detailHTML) { %>
+        <h1>
+            <%= title %>
+        </h1>
+        <div class="vehicle-details">
+            <%- detailHTML %>
+        </div>
+        <% } else { res.redirect('/') } %>

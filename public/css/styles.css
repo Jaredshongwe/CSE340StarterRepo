@@ -26,6 +26,10 @@ h2 {
   font-family: var(--heading-font), serif;
 }
 
+h1 {
+  font-size: 2em;
+}
+
 /* body */
 body {
   /* font-family: 'Share Tech Mono', sans-serif; */
@@ -108,7 +112,7 @@ footer{
 footer p {
   margin: 0;
   padding: 0;
-  font-size: .9rem;
+  font-size: 1.5rem;
 }
 
 hr {
@@ -224,7 +228,7 @@ section {
   margin-top: 1em;
 }
 
- /* filters */
+ /* Filters */
  #inv-display {
   list-style-type: none;
   margin: 0;
@@ -232,36 +236,68 @@ section {
 }
 
 #inv-display li {
-  display:flex;
+  display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin-bottom: 2em;
-  vertical-align: bottom;
+  border: 2px solid #dbdbdb;
+  border-radius: 10px;
+  height: 100%;
 }
 
 #inv-display li img {
   width: 100%;
   height: auto;
+  border: 2px solid transparent;
+  border-radius: 10px;
 }
 
 .namePrice {
-  padding: 0.3em;
+  display: flex;
+  flex-direction: column;
+  padding: 0.6em;
   background-color: #fff;
+  border: 2px solid transparent;
+  border-radius: 10px;
 }
 .namePrice a {
+align-self: center;
 font-size: 0.7em;
 text-decoration: none;
 color: #000;
 }
 
 .namePrice h2 {
-  font-size: 2em;
+  align-self: center;
+  font-size: 2rem;
   margin-bottom: 0.6em;
 }
 
 .namePrice span {
-  font-size: 1em;
+  align-self: center;
+  font-size: 1.5rem;
   color: #333;
+  margin-bottom: 0.6em;
 }
+
+
+ /* Vehicle details */
+ .vehicle-detail {
+  display:flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+  font-size: 1.5rem;
+ }
+ .vehicle-detail p {
+  padding: 1rem;
+ }
+ .vehicle-detail img {
+  border-bottom: 2px solid transparent;
+  border-radius: 10px;
+ }
+ #grey{
+  background-color: #f0f0f0;
+ }
 
 @media only screen and (min-width: 768px) {
   
@@ -375,16 +411,34 @@ color: #000;
 
    /* filters */
  #inv-display {
+  display:grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-template-rows: 50% 50% ;
+  grid-gap: 1rem;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
 #inv-display li {
-  display: inline-table;
-  width: 30%;
   margin-right: 2em;
   margin-bottom: 2em;
-  vertical-align: bottom;
 }
+
+/* Vehicle details */
+.vehicle-detail {
+  display:grid;
+  grid-gap: 1rem;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto auto auto auto auto;
+  margin-bottom: 2em;
+  font-size: 1.5rem;
+ }
+ .vehicle-detail img {
+  grid-area: 1 / 1 / span 6 / 1;
+ }
+
+ #grey{
+  background-color: #f0f0f0;
+ }
 }

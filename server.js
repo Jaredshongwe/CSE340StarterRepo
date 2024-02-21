@@ -32,11 +32,24 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
+//Favicon route
+app.get('/favicon.ico', (req, res) => {
+  res.sendStatus(404); // Or you can send an actual favicon file if available
+});
+
+// Intentional error route
+app.get("/intentional-error", (req, res, next) => {
+  const error = new Error("Intentional error for testing purposes");
+  error.status = 500; // Set status code to 500
+  //console.log(error.status)
+  error.message = 'Oh no! There was a crash. Maybe try a different route?'
+  next(error);
+});
+
 //File not found
 app.use(async (req, res, next) => {
   next({ status: 404, message: 'Sorry, we appear to have lost that page.' })
 })
-
 
 /* ***********************
 * Express Error Handler
@@ -44,12 +57,14 @@ app.use(async (req, res, next) => {
 *************************/
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if (err.status == 404) { message = err.message } else { message = 'Oh no! There was a crash. Maybe try a different route?' }
+  let error = err.status
+  //console.error(`Error at: "${req.originalUrl}": ${err.status}`)
+  if (error == 404) { message = err.message; } else { message = 'Oh no! There was a crash. Maybe try a different route?'; error = 'Server Error' }
   res.render("errors/error", {
-    title: err.status || 'Server Error',
+    title: error,
     message,
-    nav
+    nav,
+    error
   })
 })
 
