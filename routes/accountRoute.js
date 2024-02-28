@@ -20,6 +20,14 @@ router.post(
     utilities.handleErrors(accountController.registerAccount)
 );
 
+// Process the login attempt
+router.post(
+    "/login",
+    (req, res) => {
+        res.status(200).send('login process')
+    }
+)
+
 // Error handler middleware
 router.use((err, req, res, next) => {
     console.error(err.stack);
