@@ -358,23 +358,6 @@ button[type="button"]:hover {
   background-color:  var(--primary-text);
 }
 
-/* Flash message styles */
-.flash-message {
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-}
-
-.flash-success {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.flash-error {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
 p{
   color: #fff;
   font-size: 1.5rem;
@@ -382,6 +365,9 @@ p{
 p a{
   color: #fff;
 }
+input[type="password"]:focus:invalid {
+  background-color: rgb(201, 139, 139);
+ }
 
 @media only screen and (min-width: 768px) {
   

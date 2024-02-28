@@ -4,30 +4,46 @@
     <!-- Flash messages -->
     <%- messages() %>
 
-        <!-- Registration form -->
-        <form action="/account/register" method="POST">
-            <label for="account_firstname">First Name:</label>
-            <input type="text" id="account_firstname" name="account_firstname" required>
+        <% if (errors) { %>
+            <ul class="notice">
+                <% errors.array().forEach(error=> { %>
+                    <li>
+                        <%= error.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
 
-            <label for="account_lastname">Last Name:</label>
-            <input type="text" id="account_lastname" name="account_lastname" required>
+                <!-- Registration form -->
+                <form action="/account/register" method="POST">
+                    <p>All fields are required</p>
+                    <label for="account_firstname">First Name:</label>
+                    <input type="text" id="account_firstname" name="account_firstname" required
+                        value="<%= account_firstname ? account_firstname : '' %>">
 
-            <label for="account_email">Email:</label>
-            <input type="email" id="account_email" name="account_email" required>
+                    <label for="account_lastname">Last Name:</label>
+                    <input type="text" id="account_lastname" name="account_lastname" required
+                        value="<%= account_lastname ? account_lastname : '' %>">
 
-            <label for="account_password">Password:</label>
-            <div class="password-input-container">
-                <input type="password" id="account_password" name="account_password" required>
-                <button type="button" id="togglePassword">Show Password</button>
-            </div>
-            <small>Password must be at least 12 characters long, contain at least 1 capital letter, 1 number, and 1
-                special character.</small>
+                    <label for="account_email">Email:</label>
+                    <input type="email" id="account_email" name="account_email" required
+                        placeholder="Enter a valid email address" value="<%= account_email ? account_email : '' %>">
 
-            <button type="submit">Register</button>
-        </form>
+                    <label for="account_password">Password:</label>
+                    <div class="password-input-container">
+                        <input type="password" id="account_password" name="account_password" required
+                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+                            placeholder="Enter a valid password">
+                        <button type="button" id="togglePassword">Show Password</button>
+                    </div>
+                    <small>Password must be at least 12 characters long, contain at least 1 capital letter, 1 number,
+                        and 1 special character.</small>
 
-        <!-- Login link -->
-        <p>Already have an account? <a href="/account/login">Login</a></p>
+                    <button type="submit">Register</button>
+                </form>
+
+                <!-- Login link -->
+                <p>Already have an account? <a href="/account/login">Login</a></p>
 </div>
 
 <!-- Script to toggle password visibility -->

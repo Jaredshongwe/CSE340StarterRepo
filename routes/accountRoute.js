@@ -1,4 +1,4 @@
-// accountRoute.js
+const regValidate = require('../utilities/account-validation')
 
 // Resources
 const express = require("express");
@@ -11,7 +11,14 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
 // "GET" route for the "My Account" link
 router.get("/register", utilities.handleErrors(accountController.buildRegister));
-router.post('/register', utilities.handleErrors(accountController.registerAccount))
+
+// Process the registration data
+router.post(
+    "/register",
+    regValidate.registationRules(),
+    regValidate.checkRegData,
+    utilities.handleErrors(accountController.registerAccount)
+);
 
 // Error handler middleware
 router.use((err, req, res, next) => {
