@@ -1,0 +1,47 @@
+<!-- views/account/register.ejs -->
+
+<div class="register-container">
+    <!-- Flash messages -->
+    <%- messages() %>
+
+        <!-- Registration form -->
+        <form action="/account/register" method="POST">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required>
+
+            <label for="account_email">Email:</label>
+            <input type="email" id="account_email" name="account_email" required>
+
+            <label for="account_password">Password:</label>
+            <div class="password-input-container">
+                <input type="password" id="account_password" name="account_password" required>
+                <button type="button" id="togglePassword">Show Password</button>
+            </div>
+            <small>Password must be at least 12 characters long, contain at least 1 capital letter, 1 number, and 1
+                special character.</small>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <!-- Login link -->
+        <p>Already have an account? <a href="/account/login">Login</a></p>
+</div>
+
+<!-- Script to toggle password visibility -->
+<script>
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('account_password');
+
+    togglePasswordBtn.addEventListener('click', function () {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            togglePasswordBtn.textContent = 'Hide Password';
+        } else {
+            passwordInput.type = 'password';
+            togglePasswordBtn.textContent = 'Show Password';
+        }
+    });
+</script>

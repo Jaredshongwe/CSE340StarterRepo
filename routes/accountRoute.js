@@ -7,7 +7,10 @@ const utilities = require("../utilities/");
 const accountController = require("../controllers/accountController");
 
 // "GET" route for the "My Account" link
-router.get("/login", accountController.buildLogin);
+router.get("/login", utilities.handleErrors(accountController.buildLogin));
+
+// "GET" route for the "My Account" link
+router.get("/register", utilities.handleErrors(accountController.buildRegister));
 
 // Error handler middleware
 router.use((err, req, res, next) => {
