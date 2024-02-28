@@ -11,6 +11,7 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
 // "GET" route for the "My Account" link
 router.get("/register", utilities.handleErrors(accountController.buildRegister));
+router.post('/register', utilities.handleErrors(accountController.registerAccount))
 
 // Error handler middleware
 router.use((err, req, res, next) => {
