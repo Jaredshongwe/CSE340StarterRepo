@@ -299,6 +299,81 @@ color: #000;
   background-color: #f0f0f0;
  }
 
+ /* Form styles */
+
+ .login-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: var(--main-accent);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color:  var(--main-accent);
+  color: #fff;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color:  var(--primary-text);
+  font-size: 1.6rem;
+}
+
+/* Flash message styles */
+.flash-message {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.flash-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.flash-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+p{
+  color: #fff;
+  font-size: 1.5rem;
+}
+p a{
+  color: #fff;
+}
+
 @media only screen and (min-width: 768px) {
   
   /* body */

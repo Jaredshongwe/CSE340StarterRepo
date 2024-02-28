@@ -12,6 +12,7 @@ const static = require("./routes/static");
 const expressLayouts = require("express-ejs-layouts");
 const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
+const accountRoute = require("./routes/accountRoute");
 const utilities = require("./utilities/index");
 const session = require("express-session")
 const pool = require('./database/')
@@ -55,6 +56,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 
 // Inventory routes
 app.use("/inv", inventoryRoute)
+app.use("/account", accountRoute)
 
 //Favicon route
 app.get('/favicon.ico', (req, res) => {
