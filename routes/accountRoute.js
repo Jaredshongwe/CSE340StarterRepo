@@ -1,6 +1,5 @@
-const regValidate = require('../utilities/account-validation')
-
 // Resources
+const regValidate = require('../utilities/account-validation')
 const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities/");

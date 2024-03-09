@@ -320,18 +320,29 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  font-size: 1.2rem;
 }
 
 input[type="email"],
 input[type="password"],
-input[type="text"] {
+input[type="text"],
+input[type="number"],
+textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+  font-family: var(--body-font);
 }
+
+select{
+  width: 40%;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
 
 button[type="submit"],button[type="button"] {
   width: 100%;
@@ -358,16 +369,32 @@ button[type="button"]:hover {
   background-color:  var(--primary-text);
 }
 
-p{
+form p{
   color: #fff;
   font-size: 1.5rem;
 }
-p a{
+form p a{
   color: #fff;
 }
-input[type="password"]:focus:invalid {
-  background-color: rgb(201, 139, 139);
+
+input:focus:valid {
+  background-color: rgb(207, 224, 198);
  }
+
+input:focus:invalid {
+  background-color: rgb(224, 202, 202);
+ }
+ 
+
+ /* Management */
+
+#management-list li{
+  list-style: none;
+}
+
+#management-list li a{
+  font-size: 1.2rem;
+}
 
 @media only screen and (min-width: 768px) {
   
