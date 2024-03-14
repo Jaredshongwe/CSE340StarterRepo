@@ -316,6 +316,7 @@ color: #000;
   list-style: none;
   font-size: 1rem;
   color: brown;
+  font-weight: bold;
 }
 
 form {
