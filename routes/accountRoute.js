@@ -34,6 +34,6 @@ router.use((err, req, res, next) => {
 });
 
 // "GET" route for the "My Account" link
-router.get("/", utilities.handleErrors(accountController.buildAccount));
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement))
 
 module.exports = router;

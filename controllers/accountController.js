@@ -111,7 +111,7 @@ async function accountLogin(req, res) {
 /* ****************************************
 *  Deliver registration view
 * *************************************** */
-async function buildAccount(req, res, next) {
+async function buildManagement(req, res, next) {
     let nav = await utilities.getNav()
     req.flash("notice", "You're logged in!")
     res.status(200).render("account/management", {
@@ -122,4 +122,4 @@ async function buildAccount(req, res, next) {
     });
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, buildAccount }
+module.exports = { buildLogin, buildRegister, registerAccount, buildManagement }
