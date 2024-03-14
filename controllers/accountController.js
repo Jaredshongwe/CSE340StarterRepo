@@ -100,13 +100,7 @@ async function accountLogin(req, res) {
             } else {
                 res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
             }
-            req.flash("notice", "You're logged in!")
-            res.status(200).render("account/management", {
-                title: "Account Management",
-                welcome: "Welcome",
-                nav,
-                errors: null,
-            });
+            return res.redirect("/account/")
         }
 
     } catch (error) {
@@ -114,4 +108,18 @@ async function accountLogin(req, res) {
     }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin }
+/* ****************************************
+*  Deliver registration view
+* *************************************** */
+async function buildAccount(req, res, next) {
+    let nav = await utilities.getNav()
+    req.flash("notice", "You're logged in!")
+    res.status(200).render("account/management", {
+        title: "Account Management",
+        welcome: "Welcome",
+        nav,
+        errors: null,
+    });
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, buildAccount }

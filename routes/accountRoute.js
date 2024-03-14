@@ -33,4 +33,7 @@ router.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
+// "GET" route for the "My Account" link
+router.get("/", utilities.handleErrors(accountController.buildAccount));
+
 module.exports = router;
