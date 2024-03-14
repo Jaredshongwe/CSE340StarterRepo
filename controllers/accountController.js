@@ -58,12 +58,13 @@ async function registerAccount(req, res) {
 
     if (regResult) {
         req.flash(
-            "notice",
+            "message",
             `Congratulations, you\'re registered ${account_firstname}. Please log in.`
         )
         res.status(201).render("account/login", {
             title: "Login",
             nav,
+            errors: null,
         })
     } else {
         req.flash("notice", "Sorry, the registration failed.")
@@ -94,7 +95,9 @@ async function accountLogin(req, res) {
     try {
         if (await bcrypt.compare(account_password, accountData.account_password)) {
             delete accountData.account_password
-            const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+            const { account_name } = accountData;
+            const account_firstname = accountData.account_firstname;
+            const accessToken = jwt.sign({ account_email, account_firstname, account_name }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 });
             if (process.env.NODE_ENV === 'development') {
                 res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
             } else {
@@ -108,18 +111,25 @@ async function accountLogin(req, res) {
     }
 }
 
+
 /* ****************************************
 *  Deliver registration view
 * *************************************** */
 async function buildManagement(req, res, next) {
-    let nav = await utilities.getNav()
-    req.flash("notice", "You're logged in!")
+    let nav = await utilities.getNav();
+
+    // Retrieve account name from the JWT token
+    const accessToken = req.cookies.jwt;
+    const decodedToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+    const account_firstname = decodedToken.account_firstname;
+
+    // Render the management view with the account name
     res.status(200).render("account/management", {
         title: "Account Management",
-        welcome: "Welcome",
+        welcome: `Welcome ${account_firstname}`,
         nav,
-        errors: null,
     });
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, buildManagement }
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement }
