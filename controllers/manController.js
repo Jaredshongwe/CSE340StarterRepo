@@ -15,8 +15,6 @@ async function buildManagement(req, res, next) {
     });
 }
 
-module.exports = { buildManagement };
-
 /* ****************************************
  * Deliver Classification view
  * *************************************** */

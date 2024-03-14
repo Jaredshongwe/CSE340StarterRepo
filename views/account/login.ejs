@@ -4,20 +4,50 @@
     <!-- Flash messages -->
     <%- messages() %>
 
-        <!-- Login form -->
-        <form action="/account/login" method="POST">
-            <label for="account_email">Email:</label>
-            <input type="email" id="account_email" name="account_email" required
-                placeholder="Enter a valid email address">
+        <% if (errors) { %>
+            <ul class="notice">
+                <% errors.array().forEach(error=> { %>
+                    <li>
+                        <%= error.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
 
-            <label for="account_password">Password:</label>
-            <input type="password" id="account_password" name="account_password" required
-                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
-                placeholder="Enter a valid password">
+                <!-- Login form -->
+                <form action="/account/login" method="POST">
+                    <label for="account_email">Email:</label>
+                    <input type="email" id="account_email" name="account_email" required
+                        placeholder="Enter a valid email address" value="<%= locals.account_email%>">
 
-            <button type="submit">Login</button>
-        </form>
+                    <label for="account_password">Password:</label>
+                    <div class="password-input-container">
+                        <input type="password" id="account_password" name="account_password" required
+                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+                            placeholder="Enter a valid password">
+                        <button type="button" id="togglePassword">Show Password</button>
+                    </div>
+                    <small>Password must be at least 12 characters long, contain at least 1 capital letter, 1 number,
+                        and 1 special character.</small>
 
-        <!-- Registration link -->
-        <p>No account? <a href="/account/register">Sign up</a></p>
+                    <button type="submit">Login</button>
+                </form>
+
+                <!-- Registration link -->
+                <p>No account? <a href="/account/register">Sign up</a></p>
 </div>
+
+<script>
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('account_password');
+
+    togglePasswordBtn.addEventListener('click', function () {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            togglePasswordBtn.textContent = 'Hide Password';
+        } else {
+            passwordInput.type = 'password';
+            togglePasswordBtn.textContent = 'Show Password';
+        }
+    });
+</script>
