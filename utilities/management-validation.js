@@ -83,11 +83,15 @@ validate.checkInventory = async (req, res, next) => {
     if (!errors.isEmpty()) {
         const nav = await utilities.getNav();
         const { inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body;
+        const classification_name = req.body.classification_name;
         res.render("inventory/add-inventory", {
             title: "Add New Inventory",
             nav,
             errors,
-            classifications: classifications.rows,
+            classifications: classifications.rows.map(classification => ({
+                ...classification,
+                selected: classification.classification_id === classification_name
+            })),
             inv_make,
             inv_model,
             inv_description,
@@ -102,6 +106,7 @@ validate.checkInventory = async (req, res, next) => {
     }
     next();
 };
+
 
 
 module.exports = validate 

@@ -6,10 +6,29 @@
 
 <%- messages() %>
 
-    <!-- Links to trigger add new classification and add new inventory views -->
-    <div id="management-container">
-        <ul id="management-list">
-            <li><a href="/inv/add-classification">Add New Classification</a></li>
-            <li><a href="/inv/add-inventory">Add New Inventory</a></li>
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
         </ul>
-    </div>
+        <% } %>
+
+            <!-- Links to trigger add new classification and add new inventory views -->
+            <div id="management-container">
+                <ul id="management-list">
+                    <li><a href="/inv/add-classification">Add New Classification</a></li>
+                    <li><a href="/inv/add-inventory">Add New Inventory</a></li>
+                </ul>
+            </div>
+
+            <h2>Manage Inventory</h2>
+            <p>Choose a classification to see those inventory items.</p>
+            <%- classificationSelect %>
+
+                <table id="inventoryDisplay"></table>
+                <noscript>Javascript must be enabled to use this page</noscript>
+
+                <script src="../../js/inventory.js"></script>
