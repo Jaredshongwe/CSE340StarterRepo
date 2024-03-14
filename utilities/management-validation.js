@@ -107,6 +107,81 @@ validate.checkInventory = async (req, res, next) => {
     next();
 };
 
+/*  **********************************
+ *  Inventory Validation Rules
+ * ********************************* */
+validate.updateRule = () => {
+    return [
+        body("inv_make")
+            .trim()
+            .isLength({ min: 1 })
+            .withMessage("Make is required."),
 
+        body("inv_model")
+            .trim()
+            .isLength({ min: 1 })
+            .withMessage("Model is required."),
+
+        body("inv_description")
+            .trim()
+            .isLength({ min: 1 })
+            .withMessage("Description is required."),
+
+        body("inv_price")
+            .trim()
+            .isNumeric({ min: 0 })
+            .withMessage("Please provide a valid price."),
+
+        body("inv_year")
+            .trim()
+            .isInt({ min: 1900, max: new Date().getFullYear() })
+            .withMessage("Please provide a valid year."),
+
+        body("inv_miles")
+            .trim()
+            .isNumeric({ min: 0 })
+            .withMessage("Please provide valid mileage."),
+
+        body("inv_color")
+            .trim()
+            .isLength({ min: 1 })
+            .withMessage("Color is required."),
+
+        body("inv_id")
+            .trim()
+            .isNumeric({ min: 0 })
+    ];
+};
+
+validate.checkUpdate = async (req, res, next) => {
+    let errors = [];
+    errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        console.log("We are heer");
+        const nav = await utilities.getNav();
+        const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color, inv_id } = req.body;
+        const itemName = `${inv_make} ${inv_model}`
+        const classificationSelect = await utilities.buildClassificationList(classification_id)
+        console.log(req.body);
+        res.render("inventory/edit-inventory", {
+            title: `Edit ${itemName}`,
+            nav,
+            errors,
+            classificationSelect,
+            inv_id,
+            inv_make,
+            inv_model,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_year,
+            inv_miles,
+            inv_color,
+        });
+        return;
+    }
+    next();
+};
 
 module.exports = validate 
