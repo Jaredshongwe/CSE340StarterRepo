@@ -82,7 +82,9 @@ async function buildAddInventory(req, res, next) {
 * *************************************** */
 async function addInventory(req, res) {
     let nav = await utilities.getNav();
+    let classificationSelect = await utilities.buildClassificationList();
     const { classification_name, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body;
+
 
     // Call model function to add inventory item to database
     const regResult = await managementModel.addInventory(
@@ -103,18 +105,13 @@ async function addInventory(req, res) {
             "notice",
             `The ${inv_make} ${inv_model} Was added Successfully`
         )
-        nav = await utilities.getNav()
-        res.status(201).render("inventory/management", {
-            title: 'Vehicle Management',
-            nav,
-        })
+        res.status(201).redirect("/inv/")
     } else {
         req.flash("notice", "Sorry, the adding classification failed.")
-        res.status(501).render("inventory/management", {
-            title: 'Vehicle Management',
-            nav,
-        })
+        res.status(501).redirect("/inv/")
     }
 }
+
+
 
 module.exports = { buildManagement, buildClassification, registerClassification, buildAddInventory, addInventory };

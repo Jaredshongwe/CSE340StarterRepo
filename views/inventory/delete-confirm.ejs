@@ -1,0 +1,43 @@
+<!-- views/inventory/edit-inventory.ejs -->
+
+<h1>
+    <%= title %>
+</h1>
+
+<%- messages() %>
+
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <% } %>
+
+            <div class="register-container">
+                <!-- Flash messages -->
+                <!-- Delete Inventory form -->
+                <form action="/inv/delete" method="POST">
+
+                    <p>Confirm Deletion - The deletion is permanent.</p>
+
+                    <label for="inv_make">Make:</label>
+                    <input type="text" readonly id="inv_make" name="inv_make" required value="<%= inv_make %>">
+
+                    <label for="inv_model">Model:</label>
+                    <input type="text" readonly id="inv_model" name="inv_model" required value="<%= inv_model %>">
+
+                    <label for="inv_price">Price:</label>
+                    <input type="number" readonly id="inv_price" name="inv_price" required value="<%= inv_price %>">
+
+                    <label for="inv_year">Year:</label>
+                    <input type="number" readonly id="inv_year" name="inv_year" required value="<%= inv_year %>">
+
+
+                    <input type="hidden" id="inv_id" name="inv_id" value="<%= inv_id %>">
+
+                    <button type="submit">Confirm Delete</button>
+                </form>
+            </div>

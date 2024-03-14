@@ -19,7 +19,7 @@
             <% } %>
 
                 <!-- Edit Inventory form -->
-                <form action="/inv/update" method="POST">
+                <form id="updateForm" action="/inv/update" method="POST">
 
                     <p>All Fields Are Required</p>
                     <label for="classification_name">Classification </label>
@@ -55,6 +55,8 @@
 
                         <input type="hidden" id="inv_id" name="inv_id" value="<%= inv_id %>">
 
-                        <button type="submit">Update Vehicle</button>
+                        <button type="submit" disabled>Update Vehicle</button>
                 </form>
 </div>
+
+<script src="../../js/inv-update.js"></script>

@@ -23,5 +23,11 @@ router.post("/update/",
     regValidate.checkUpdate,
     utilities.handleErrors(invController.updateInventory));
 
+// Route to build specific confirm delete view
+router.get("/delete/:invId", utilities.handleErrors(invController.deleteView));
+
+// Process delete item
+router.post("/delete", utilities.handleErrors(invController.deleteItem));
+
 
 module.exports = router;
