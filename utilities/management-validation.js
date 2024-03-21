@@ -2,6 +2,7 @@ const utilities = require(".")
 const { body, validationResult } = require("express-validator")
 const validate = {}
 const inventoryModel = require("../models/inventory-model");
+const jwt = require("jsonwebtoken");
 
 /*  **********************************
  *  Classification Validation Rules
@@ -183,5 +184,42 @@ validate.checkUpdate = async (req, res, next) => {
     }
     next();
 };
+
+
+/* ******************************
+* Check Account type and return errors or continue to inventory management
+* ***************************** */
+validate.checkAccountType = (req, res, next) => {
+    // get JWT token from request cookies
+    const accessToken = req.cookies.jwt;
+
+    if (accessToken) {
+        try {
+            // decode JWT token to get account type
+            const decodedToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+            const accountType = decodedToken.account_type;
+
+            // check if account type is "Employee" or "Admin"
+            if (accountType === "Employee" || accountType === "Admin") {
+                // allow access to the next middleware/route handler
+                return next();
+            } else {
+                // send message and render login view
+                req.flash("error", "Unauthorized access. Please log in as an Employee or Admin.");
+                return res.redirect("/account/login");
+            }
+        } catch (error) {
+            // handle token verification errors
+            console.error(error);
+            req.flash("error", "Token verification failed. Please log in.");
+            return res.redirect("/account/login");
+        }
+    } else {
+        // if no token found, redirect to login view
+        req.flash("error", "Unauthorized access. Please log in.");
+        return res.redirect("/account/login");
+    }
+};
+
 
 module.exports = validate 

@@ -15,4 +15,12 @@
         <ul id="management-list">
             <li><a href="#">Edit Account Information</a></li>
         </ul>
+
+        <% if (account_type=="Employee" || account_type=="Admin" ) { %>
+            <h2>Inventory Management</h2>
+            <ul id="management-list">
+                <li><a href="/inv/">Manage inventory</a></li>
+            </ul>
+            <% } %>
+
     </div>

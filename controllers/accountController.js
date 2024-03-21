@@ -97,7 +97,8 @@ async function accountLogin(req, res) {
             delete accountData.account_password
             const { account_name } = accountData;
             const account_firstname = accountData.account_firstname;
-            const accessToken = jwt.sign({ account_email, account_firstname, account_name }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 });
+            const account_type = accountData.account_type;
+            const accessToken = jwt.sign({ account_email, account_firstname, account_name, account_type }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 });
             if (process.env.NODE_ENV === 'development') {
                 res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
             } else {
@@ -122,6 +123,7 @@ async function buildManagement(req, res, next) {
     const accessToken = req.cookies.jwt;
     const decodedToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
     const account_firstname = decodedToken.account_firstname;
+    const account_type = decodedToken.account_type;
 
     // Pass the username to the header partial
     res.locals.account_username = account_firstname;
@@ -130,6 +132,7 @@ async function buildManagement(req, res, next) {
     res.status(200).render("account/management", {
         title: "Account Management",
         welcome: `Welcome ${account_firstname}`,
+        account_type: account_type,
         nav,
     });
 }
