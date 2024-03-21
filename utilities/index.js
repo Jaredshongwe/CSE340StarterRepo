@@ -141,4 +141,26 @@ Util.checkLogin = (req, res, next) => {
     }
 }
 
+/* ******************************
+* Set username Middleware
+* ***************************** */
+Util.setAccountUsername = async (req, res, next) => {
+    if (req.cookies.jwt) {
+        const accessToken = req.cookies.jwt;
+        try {
+            const decodedToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+            const account_firstname = decodedToken.account_firstname;
+            res.locals.account_username = account_firstname;
+        } catch (error) {
+            console.error('Error decoding JWT:', error);
+            // If JWT verification fails, clear the account username from res.locals
+            delete res.locals.account_username;
+        }
+    } else {
+        // If no JWT token found in cookies, clear the account username from res.locals
+        delete res.locals.account_username;
+    }
+    next();
+};
+
 module.exports = Util

@@ -36,4 +36,7 @@ router.use((err, req, res, next) => {
 // "GET" route for the "My Account" link
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement))
 
+// Logout Route
+router.get("/logout", accountController.logout);
+
 module.exports = router;

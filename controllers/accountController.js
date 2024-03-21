@@ -123,6 +123,9 @@ async function buildManagement(req, res, next) {
     const decodedToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
     const account_firstname = decodedToken.account_firstname;
 
+    // Pass the username to the header partial
+    res.locals.account_username = account_firstname;
+
     // Render the management view with the account name
     res.status(200).render("account/management", {
         title: "Account Management",
@@ -131,5 +134,15 @@ async function buildManagement(req, res, next) {
     });
 }
 
+/* ****************************************
+*  Logout Function
+* *************************************** */
+const logout = (req, res) => {
+    // Clear session or cookie indicating that the client is logged out
+    res.clearCookie("jwt");
+    // Redirect to the homepage or any other desired location
+    res.redirect("/");
+};
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement }
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement, logout }
