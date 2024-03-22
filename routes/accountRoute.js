@@ -5,6 +5,12 @@ const router = new express.Router();
 const utilities = require("../utilities/");
 const accountController = require("../controllers/accountController");
 
+// Error handler middleware
+router.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
 // "GET" route for the "My Account" link
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
@@ -27,16 +33,27 @@ router.post(
     utilities.handleErrors(accountController.accountLogin)
 )
 
-// Error handler middleware
-router.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-});
-
 // "GET" route for the "My Account" link
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement))
 
 // Logout Route
-router.get("/logout", accountController.logout);
+router.get("/logout", utilities.handleErrors(accountController.logout));
+
+// Update Account Route
+router.get("/update", utilities.handleErrors(accountController.buildEditView));
+
+router.post(
+    "/update",
+    regValidate.updateRules(),
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.updateAccount)
+)
+
+router.post(
+    "/change-password",
+    regValidate.passwordRules(),
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.changePassword)
+)
 
 module.exports = router;
