@@ -167,5 +167,45 @@ Util.setAccountUsername = async (req, res, next) => {
     next();
 };
 
+/* ********************************************
+ *  Build reviews for a specific inventory item
+ * ******************************************** */
+Util.buildReviews = async (inv_id) => {
+    try {
+        const reviews = await invModel.getReviewsByInventoryId(inv_id);
+        let reviewsHTML = '<h1>Reviews</h1>';
+        if (reviews.length > 0) {
+            let totalRating = 0;
+            reviewsHTML += '<div class="reviews">';
+            reviews.forEach(review => {
+                totalRating += review.rating;
+                reviewsHTML += `
+                    <div class="review">
+                        <h3>${review.rev_title}</h3>
+                        <p>${review.rev_description}</p>
+                        <p>Rating: ${review.rating}/5</p>
+                        <p>By: ${review.username}</p>
+                    </div>
+                `;
+            });
+            const averageRating = totalRating / reviews.length;
+            reviewsHTML += '</div>';
+            reviewsHTML += '<a href="/review" class="btn btn-primary">Write a Review</a>';
+            reviewsHTML += `<p class="average-rating">Average Rating: ${averageRating.toFixed(2)}/5</p>`;
+        } else {
+            reviewsHTML += '<p class="No reveiws" >No reviews available for this item.</p>';
+            reviewsHTML += '<a href="/review" class="btn btn-primary">Write a Review</a>';
+        }
+        return reviewsHTML;
+    } catch (error) {
+        console.error("buildReviews error: " + error);
+        return '<p>Error fetching reviews.</p>';
+    }
+}
+
+
+
+
+
 
 module.exports = Util

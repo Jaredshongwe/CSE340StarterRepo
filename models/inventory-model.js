@@ -41,4 +41,21 @@ async function getInventoryItemById(inv_id) {
     }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryItemById };
+/* ********************************************
+ *  Get all reviews for a specific inventory item
+ * ******************************************** */
+async function getReviewsByInventoryId(inv_id) {
+    try {
+        const data = await pool.query(
+            `SELECT * FROM public.reviews WHERE inv_id = $1`,
+            [inv_id]
+        );
+        return data.rows; // Return all reviews for the specified inventory item
+    } catch (error) {
+        console.error("getReviewsByInventoryId error: " + error);
+        throw error; // Rethrow the error to be caught by the caller
+    }
+}
+
+
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryItemById, getReviewsByInventoryId };
