@@ -1,6 +1,7 @@
 const invModel = require("../models/inventory-model")
 const managementModel = require("../models/management-model");
 const utilities = require("../utilities/")
+const jwt = require("jsonwebtoken")
 
 const invCont = {}
 
@@ -30,7 +31,7 @@ invCont.buildInventoryItemDetail = async function (req, res, next) {
         if (item) {
             const detailHTML = utilities.buildVehicleDetail(item);
             const reviews = await utilities.buildReviews(invId)
-            console.log(reviews);
+
             const total = new Intl.NumberFormat('en-US').format(item.inv_price)
             let nav = await utilities.getNav()
             res.render("./inventory/detail", {
@@ -40,6 +41,7 @@ invCont.buildInventoryItemDetail = async function (req, res, next) {
                 price: item.inv_price,
                 reviews,
                 nav,
+                errors: null,
             });
         } else {
             // Handle the case where no item is found for the given ID
@@ -186,6 +188,63 @@ invCont.deleteItem = async function (req, res, next) {
     } else {
         req.flash("notice", 'Sorry, the delete failed.')
         res.redirect('/inv/delete/inv_id')
+    }
+}
+
+/* ********************************
+ * Build Review View
+ * ******************************** */
+invCont.reviewView = async function (req, res, next) {
+    const inv_id = parseInt(req.params.invId)
+
+    let nav = await utilities.getNav()
+    const itemData = await invModel.getInventoryItemById(inv_id)
+    const itemName = `${itemData.inv_year} ${itemData.inv_make} ${itemData.inv_model}`
+
+    res.render("./inventory/review", {
+        title: "Review " + itemName,
+        nav,
+        errors: null,
+        inv_id: inv_id,
+        rev_title: null,
+        description: null,
+        rating: null,
+    })
+}
+
+/* ****************************************
+*  Process Add review
+* *************************************** */
+invCont.addReview = async function (req, res, next) {
+    let nav = await utilities.getNav();
+
+    // Retrieve account name from the JWT token
+    const accessToken = req.cookies.jwt;
+    const decodedToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+    const account_firstname = decodedToken.account_firstname;
+
+    const username = account_firstname
+
+    const { title, description, rating, inv_id } = req.body;
+
+    // Call model function to add inventory item to database
+    const regResult = await invModel.addReview(
+        title,
+        description,
+        rating,
+        inv_id,
+        username,
+    );
+
+    if (regResult) {
+        req.flash(
+            "notice",
+            `Review added Successfully`
+        )
+        res.status(201).redirect(`/inv/detail/${inv_id}`)
+    } else {
+        req.flash("notice", "Sorry, adding review failed.")
+        res.status(501).redirect(`/inv/detail/${inv_id}`)
     }
 }
 

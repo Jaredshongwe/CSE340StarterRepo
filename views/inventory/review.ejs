@@ -1,0 +1,46 @@
+<!-- views/inventory/review.ejs -->
+
+<h1>
+    <%= title %>
+</h1>
+<!-- Flash messages -->
+<%- messages() %>
+
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <% } %>
+
+            <div class="register-container">
+
+                <!-- Review form -->
+                <form action="/inv/review/" method="POST">
+                    <div>
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" value="<%= rev_title %>" required>
+                    </div>
+                    <div>
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+                    <div>
+                        <label for="rating">Rating:</label>
+                        <select id="rating" name="rating" required>
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Very Good</option>
+                            <option value="3">3 - Good</option>
+                            <option value="2">2 - Fair</option>
+                            <option value="1">1 - Poor</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="hidden" name="inv_id" value="<%= inv_id %>">
+                    </div>
+                    <button type="submit">Submit Review</button>
+                </form>
+            </div>

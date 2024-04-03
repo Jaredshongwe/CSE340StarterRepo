@@ -57,5 +57,15 @@ async function getReviewsByInventoryId(inv_id) {
     }
 }
 
+async function addReview(title, description, rating, inv_id, username) {
+    try {
+        const insertQuery = `INSERT INTO reviews ( rev_title, rev_description, username, rating, inv_id )
+         VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+        return await pool.query(insertQuery, [title, description, username, rating, inv_id]);
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryItemById, getReviewsByInventoryId };
+    } catch (error) {
+        console.log(error);
+        return error.message
+    }
+}
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryItemById, getReviewsByInventoryId, addReview };

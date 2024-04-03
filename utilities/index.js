@@ -190,15 +190,15 @@ Util.buildReviews = async (inv_id) => {
             });
             const averageRating = totalRating / reviews.length;
             reviewsHTML += '</div>';
-            reviewsHTML += '<a href="/review" class="btn btn-primary">Write a Review</a>';
+            reviewsHTML += `<a href="/inv/review/${inv_id}" class="btn btn-primary">Write a Review</a>`;
             reviewsHTML += `<p class="average-rating">Average Rating: ${averageRating.toFixed(2)}/5</p>`;
+            reviewsHTML += `<p hidden id="inv_id"> ${inv_id} </p>`;
         } else {
-            reviewsHTML += '<p class="No reveiws" >No reviews available for this item.</p>';
-            reviewsHTML += '<a href="/review" class="btn btn-primary">Write a Review</a>';
+            reviewsHTML += '<p class="No reviews" >No reviews available for this item.</p>';
+            reviewsHTML += `<a href="/inv/review/${inv_id}" class="btn btn-primary">Write a Review</a>`;
         }
         return reviewsHTML;
     } catch (error) {
-        console.error("buildReviews error: " + error);
         return '<p>Error fetching reviews.</p>';
     }
 }

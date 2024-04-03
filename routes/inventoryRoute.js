@@ -3,6 +3,7 @@ const express = require("express");
 const router = new express.Router();
 const invController = require("../controllers/invController");
 const regValidate = require('../utilities/management-validation');
+const invValidate = require('../utilities/inventory-validation');
 const utilities = require("../utilities/");
 
 // Route to inventory management
@@ -32,5 +33,14 @@ router.get("/delete/:invId", utilities.handleErrors(invController.deleteView));
 // Process delete item
 router.post("/delete", utilities.handleErrors(invController.deleteItem));
 
+// Route to build specific review view
+router.get("/review/:invId", utilities.handleErrors(invController.reviewView));
+
+// Process the add inventory form submission
+router.post("/review/",
+    utilities.checkLogin,
+    invValidate.reviewRule(),
+    invValidate.checkReview,
+    utilities.handleErrors(invController.addReview));
 
 module.exports = router;
