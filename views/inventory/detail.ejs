@@ -12,7 +12,7 @@
             <section id="add-ons">
                 <h1>Upgrades</h1>
                 <div class="flex">
-                    <a href="#" title="flux-capacitor">
+                    <a href="#" title="flux-capacitor" class="upgrade-link" data-upgrade="flux-capacitor">
                         <figure>
                             <div class="add-col">
                                 <img src="/images/upgrades/flux-cap.png" alt="Flux-Capacitor">
@@ -20,7 +20,7 @@
                             <figcaption>Flux Capacitor</figcaption>
                         </figure>
                     </a>
-                    <a href="#" title="flame decals">
+                    <a href="#" title="flame decals" class="upgrade-link" data-upgrade="flame-decals">
                         <figure>
                             <div class="add-col">
                                 <img src="/images/upgrades/flame.jpg" alt="flame decal">
@@ -30,7 +30,7 @@
                     </a>
                 </div>
                 <div class="flex">
-                    <a href="#" title="bumper stickers">
+                    <a href="#" title="bumper stickers" class="upgrade-link" data-upgrade="bumper-stickers">
                         <figure>
                             <div class="add-col">
                                 <img src="/images/upgrades/bumper_sticker.jpg" alt="Bumper Stickers">
@@ -38,7 +38,7 @@
                             <figcaption>Bumper Stickers</figcaption>
                         </figure>
                     </a>
-                    <a href="#" title="hub caps">
+                    <a href="#" title="hub caps" class="upgrade-link" data-upgrade="hub-caps">
                         <figure>
                             <div class="add-col">
                                 <img src="/images/upgrades/hub-cap.jpg" alt="Hub Caps">
@@ -51,7 +51,11 @@
         </div>
         <div class="Custom-price">
             <h2>Base Price: $ <%- total %> </h2>
-            <h2>Customization Total: $ <%- total %> </h2>
-
+            <h2 id="customization-total">Estimated Customization Total: $ <%- total %> </h2>
+            <p hidden id="total"> <%- price %> </p>
+            <button id="reset-button">Reset Estimated Total</button>
+            <div id="upgrade-counts"></div>
         </div>
         <% } else { res.redirect('/') } %>
+
+            <script src="/js/customization.js"></script>

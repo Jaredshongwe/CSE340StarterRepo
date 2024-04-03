@@ -35,6 +35,7 @@ invCont.buildInventoryItemDetail = async function (req, res, next) {
                 title: `${item.inv_year} ${item.inv_make} ${item.inv_model}`,
                 detailHTML,
                 total,
+                price: item.inv_price,
                 nav,
             });
         } else {
