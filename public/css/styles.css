@@ -547,6 +547,10 @@ input:focus:invalid {
  .vehicle-detail img {
   grid-area: 1 / 1 / span 6 / 1;
  }
+ .upgrades {
+  grid-area: 2 / 1 / span 2 / 1;
+ }
+
 
  #grey{
   background-color: #f0f0f0;

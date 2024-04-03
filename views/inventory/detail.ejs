@@ -7,4 +7,51 @@
         <div class="vehicle-details">
             <%- detailHTML %>
         </div>
+
+        <div class="upgrades">
+            <section id="add-ons">
+                <h2>Upgrades</h2>
+                <div class="flex">
+                    <a href="#" title="flux-capacitor">
+                        <figure>
+                            <div class="add-col">
+                                <img src="/images/upgrades/flux-cap.png" alt="Flux-Capacitor">
+                            </div>
+                            <figcaption>Flux Capacitor</figcaption>
+                        </figure>
+                    </a>
+                    <a href="#" title="flame decals">
+                        <figure>
+                            <div class="add-col">
+                                <img src="/images/upgrades/flame.jpg" alt="flame decal">
+                            </div>
+                            <figcaption>Flame Decals</figcaption>
+                        </figure>
+                    </a>
+                </div>
+                <div class="flex">
+                    <a href="#" title="bumper stickers">
+                        <figure>
+                            <div class="add-col">
+                                <img src="/images/upgrades/bumper_sticker.jpg" alt="Bumper Stickers">
+                            </div>
+                            <figcaption>Bumper Stickers</figcaption>
+                        </figure>
+                    </a>
+                    <a href="#" title="hub caps">
+                        <figure>
+                            <div class="add-col">
+                                <img src="/images/upgrades/hub-cap.jpg" alt="Hub Caps">
+                            </div>
+                            <figcaption>Hub Caps</figcaption>
+                        </figure>
+                    </a>
+                </div>
+            </section>
+        </div>
+        <div class="Custom-price">
+            <h2>Base Price: $ <%- total %> </h2>
+            <h2>Customization Total: $ <%- total %> </h2>
+
+        </div>
         <% } else { res.redirect('/') } %>

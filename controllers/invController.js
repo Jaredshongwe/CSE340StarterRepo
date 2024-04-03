@@ -29,10 +29,12 @@ invCont.buildInventoryItemDetail = async function (req, res, next) {
         const item = await invModel.getInventoryItemById(invId);
         if (item) {
             const detailHTML = utilities.buildVehicleDetail(item);
+            const total = new Intl.NumberFormat('en-US').format(item.inv_price)
             let nav = await utilities.getNav()
             res.render("./inventory/detail", {
                 title: `${item.inv_year} ${item.inv_make} ${item.inv_model}`,
                 detailHTML,
+                total,
                 nav,
             });
         } else {
