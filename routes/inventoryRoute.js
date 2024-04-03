@@ -34,7 +34,7 @@ router.get("/delete/:invId", utilities.handleErrors(invController.deleteView));
 router.post("/delete", utilities.handleErrors(invController.deleteItem));
 
 // Route to build specific review view
-router.get("/review/:invId", utilities.handleErrors(invController.reviewView));
+router.get("/review/:invId", utilities.checkLogin, utilities.handleErrors(invController.reviewView));
 
 // Process the add inventory form submission
 router.post("/review/",
